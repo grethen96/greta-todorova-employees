@@ -1,0 +1,50 @@
+﻿
+<script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+<link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+
+<div>   
+    <div id="myGrid" style="height:800px;width:100%; padding:3px; padding-left:initial;" class="ag-theme-balham"></div>
+</div>
+
+<script>
+
+    var columnDefs = [
+        { field: "empID1", headerName: "Employee ID #1" },
+        { field: "empID2", headerName: "Employee ID #2" },
+        { field: "projectID", headerName: "Project ID" },
+        { field: "daysWorked", headerName: "Days worked" },
+    ];
+
+    var gridOptions = {
+        columnDefs: columnDefs,
+        defaultColDef: {
+            width: 150,
+            sortable: true,
+            resizable: true
+        }
+    };
+
+    gridOptions.rowStyle = { font: "Times New Roman" };
+    gridOptions.rowHeight = 40;
+
+    var agGridDiv = document.querySelector('#myGrid');
+
+    new agGrid.Grid(agGridDiv, gridOptions);
+
+    agGrid.simpleHttpRequest({
+        url: '/Home/LoadData',
+    })
+        .then(function (result) {
+            try {
+                var data = result.data;
+                gridOptions.api.setRowData(data);
+                gridOptions.api.paginationGoToPage(0);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+
+
+</script>

@@ -1,0 +1,30 @@
+﻿      @{ 
+          ViewData["Title"] = "Home Page";
+      }
+<script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+<link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+<form enctype="multipart/form-data" method="POST" asp-action="UploadFile">
+    <div>
+        <p>Upload File:</p>
+        <input class="custom-file" id="file1" name="file" type="file" />
+        <input type="submit" value="Upload" class="btn btn-primary" />
+    </div>
+</form>
+@if (@ViewData["grid"] == "show" && @ViewData["grid"] != null)
+{
+<div>
+    <p>Show Data from File:</p>
+    <div>
+        <partial name="~/Pages/UploadFile.cshtml" />
+    </div>
+</div>
+}
+
+
